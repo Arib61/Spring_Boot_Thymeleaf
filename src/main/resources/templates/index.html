@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout}">
+<head>
+    <title>Accueil - Gestion Scolaire</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="text-center py-5">
+        <div class="hero-section">
+            <i class="bi bi-mortarboard-fill display-1 text-primary mb-4"></i>
+            <h1 class="display-4 fw-bold text-gradient mb-3">Gestion Scolaire</h1>
+            <p class="lead text-muted mb-4">Plateforme de gestion des étudiants, filières et cours</p>
+            <div class="row g-4 mt-5">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-people-fill display-4 text-primary mb-3"></i>
+                            <h5 class="card-title">Gestion des Élèves</h5>
+                            <p class="card-text">Inscrivez et suivez vos étudiants avec toutes leurs informations académiques.</p>
+                            <a th:href="@{/eleves}" class="btn btn-primary">
+                                <i class="bi bi-arrow-right me-2"></i>Voir les Élèves
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-diagram-3-fill display-4 text-success mb-3"></i>
+                            <h5 class="card-title">Gestion des Filières</h5>
+                            <p class="card-text">Organisez vos programmes d'études et spécialisations.</p>
+                            <a th:href="@{/filieres}" class="btn btn-success">
+                                <i class="bi bi-arrow-right me-2"></i>Voir les Filières
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0">
+                        <div class="card-body text-center">
+                            <i class="bi bi-book-fill display-4 text-info mb-3"></i>
+                            <h5 class="card-title">Gestion des Cours</h5>
+                            <p class="card-text">Gérez votre catalogue de cours et matières enseignées.</p>
+                            <a th:href="@{/cours}" class="btn btn-info">
+                                <i class="bi bi-arrow-right me-2"></i>Voir les Cours
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-graph-up text-success me-2"></i>Statistiques
+                    </h5>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="p-3">
+                                <h3 class="text-primary">2</h3>
+                                <small class="text-muted">Filières</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3">
+                                <h3 class="text-success">3</h3>
+                                <small class="text-muted">Cours</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3">
+                                <h3 class="text-info">2</h3>
+                                <small class="text-muted">Élèves</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-lightbulb text-warning me-2"></i>Fonctionnalités
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Gestion complète des étudiants
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Organisation des filières
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Catalogue de cours détaillé
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Interface moderne et responsive
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

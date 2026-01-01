@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html}">
+<head>
+    <title>Détails Élève</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="card shadow-sm p-4">
+            <h3>Détails élève</h3>
+
+            <p><b>Nom :</b> <span th:text="${eleve.nom}"></span></p>
+            <p><b>Prénom :</b> <span th:text="${eleve.prenom}"></span></p>
+            <p><b>Filière :</b>
+                <span th:text="${eleve.filiere != null ? eleve.filiere.nom : '-'}"></span>
+            </p>
+
+            <hr>
+
+            <h5>Dossier administratif</h5>
+            <p>
+                <b>Numéro :</b>
+                <span th:text="${eleve.dossierAdministratif?.numeroInscription ?: '-'}"></span>
+            </p>
+
+            <hr>
+
+            <h5>Cours suivis</h5>
+            <ul class="list-group">
+                <li class="list-group-item"
+                    th:each="c : ${eleve.cours}"
+                    th:text="${c.intitule}">
+                </li>
+            </ul>
+
+            <a class="btn btn-secondary mt-3" th:href="@{/eleves}">Retour</a>
+        </div>
+    </div>
+</body>
+</html>

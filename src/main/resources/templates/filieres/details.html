@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout}">
+<head>
+    <title>Détails Filière</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="card p-4 shadow-sm">
+        <h3 th:text="${filiere.nom}"></h3>
+        <p><b>Code :</b> <span th:text="${filiere.code}"></span></p>
+
+        <hr>
+        <h5>Élèves</h5>
+        <ul>
+            <li th:each="e : ${filiere.eleves}" th:text="${e.nom + ' ' + e.prenom}"></li>
+        </ul>
+
+        <hr>
+        <h5>Cours</h5>
+        <ul>
+            <li th:each="c : ${filiere.cours}" th:text="${c.intitule}"></li>
+        </ul>
+
+        <a class="btn btn-secondary" th:href="@{/filieres}">Retour</a>
+    </div>
+</div>
+</body>
+</html>

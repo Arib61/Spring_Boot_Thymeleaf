@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout}">
+<head>
+    <title>Liste des Filières</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <br><br>
+            <h2 class="mb-1">
+                <i class="bi bi-diagram-3 me-3"></i>Filières
+            </h2>
+            <p class="text-muted mb-0">Programmes d'études et spécialisations</p>
+        </div>
+        <a th:href="@{/filieres/new}" class="btn btn-success">
+            <i class="bi bi-plus-circle me-2"></i>Ajouter une Filière
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4" th:each="f : ${filieres}">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-diagram-3 me-2"></i>[[${f.code}]]
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title text-primary mb-3">[[${f.nom}]]</h6>
+                    <a class="btn btn-outline-primary btn-sm" th:href="@{/filieres/{id}(id=${f.id})}">
+                        <i class="bi bi-eye me-1"></i>Détails
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(filieres)}" class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <i class="bi bi-diagram-3 display-4 text-muted mb-3"></i>
+                    <h5 class="text-muted">Aucune filière trouvée</h5>
+                    <p class="text-muted">Commencez par créer votre première filière.</p>
+                    <a th:href="@{/filieres/new}" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-2"></i>Créer une Filière
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques des filières -->
+    <div th:if="${!#lists.isEmpty(filieres)}" class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <i class="bi bi-bar-chart me-2"></i>Répartition des Filières
+                    </h6>
+                    <div class="progress mb-3" style="height: 20px;">
+                        <div class="progress-bar bg-primary" style="width: 50%">INFO (1)</div>
+                        <div class="progress-bar bg-success" style="width: 50%">MATH (1)</div>
+                    </div>
+                    <small class="text-muted">Distribution équilibrée des programmes</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <i class="bi bi-trophy me-2"></i>Top Filières
+                    </h6>
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-warning me-2">1</span>
+                        <span>Informatique</span>
+                        <small class="text-muted ms-auto">Plus populaire</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-secondary me-2">2</span>
+                        <span>Mathématiques</span>
+                        <small class="text-muted ms-auto">Équilibré</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+</style>
+</body>
+</html>

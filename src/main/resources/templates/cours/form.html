@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout}">
+<head>
+    <title>Gestion Cours</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="card p-4 shadow-sm">
+        <h3 th:text="${coursItem.id == null ? 'Ajouter un cours' : 'Modifier cours'}"></h3>
+
+        <form th:action="${coursItem.id == null} ? @{/cours} : @{/cours/{id}(id=${coursItem.id})}" method="post">
+            <div class="mb-3">
+                <label>Code</label>
+                <input class="form-control" name="code" th:value="${coursItem.code}">
+            </div>
+
+            <div class="mb-3">
+                <label>Intitulé</label>
+                <input class="form-control" name="intitule" th:value="${coursItem.intitule}">
+            </div>
+
+            <div class="mb-3">
+                <label>Filière</label>
+                <select class="form-select" name="filiereId">
+                    <option value="">-- Aucune --</option>
+                    <option th:each="f : ${filieres}"
+                            th:value="${f.id}"
+                            th:text="${f.code + ' - ' + f.nom}"
+                            th:selected="${coursItem.filiere != null && coursItem.filiere.id == f.id}">
+                    </option>
+                </select>
+            </div>
+
+            <button class="btn btn-success">Enregistrer</button>
+            <a class="btn btn-secondary" th:href="@{/cours}">Retour</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

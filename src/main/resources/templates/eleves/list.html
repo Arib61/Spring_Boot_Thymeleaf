@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html}">
+<head>
+    <title>Liste des Élèves</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <br><br>
+                <h2 class="mb-1">
+                    <i class="bi bi-people me-3"></i>Liste des Élèves
+                </h2>
+                <p class="text-muted mb-0">Gestion des étudiants inscrits</p>
+            </div>
+            <a th:href="@{/eleves/new}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-2"></i>Ajouter un Élève
+            </a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-0 py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="bi bi-table me-2"></i>Élèves (<span th:text="${#lists.size(eleves)}"></span>)
+                    </h5>
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" class="form-control" placeholder="Rechercher un élève..." id="searchInput">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th><i class="bi bi-hash me-1"></i>ID</th>
+                            <th><i class="bi bi-person me-1"></i>Nom</th>
+                            <th><i class="bi bi-person-badge me-1"></i>Prénom</th>
+                            <th><i class="bi bi-diagram-3 me-1"></i>Filière</th>
+                            <th><i class="bi bi-gear me-1"></i>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="e : ${eleves}" class="eleve-row">
+                            <td>
+                                <span class="badge bg-primary" th:text="'#' + ${e.id}"></span>
+                            </td>
+                            <td class="fw-semibold" th:text="${e.nom}"></td>
+                            <td th:text="${e.prenom}"></td>
+                            <td>
+                                <span th:if="${e.filiere}" class="badge bg-success" th:text="${e.filiere.code}"></span>
+                                <span th:unless="${e.filiere}" class="text-muted">-</span>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-sm btn-outline-info" th:href="@{/eleves/{id}(id=${e.id})}" title="Voir détails">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-warning" th:href="@{/eleves/{id}/edit(id=${e.id})}" title="Modifier">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-danger" title="Supprimer"
+                                            th:data-id="${e.id}"
+                                            th:data-name="${e.nom + ' ' + e.prenom}"
+                                            onclick="confirmDelete(this.dataset.id, this.dataset.name)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(eleves)}">
+                            <td colspan="5" class="text-center py-5">
+                                <i class="bi bi-people display-4 text-muted mb-3"></i>
+                                <h5 class="text-muted">Aucun élève trouvé</h5>
+                                <p class="text-muted">Commencez par ajouter votre premier élève.</p>
+                                <a th:href="@{/eleves/new}" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle me-2"></i>Ajouter un Élève
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    function confirmDelete(id, name) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer l\'élève "' + name + '" ?')) {
+            // Créer et soumettre le formulaire de suppression
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = '/eleves/' + id + '/delete';
+
+            // Ajouter un champ CSRF (nécessaire si Spring Security est activé)
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_csrf';
+            csrfInput.value = document.querySelector('meta[name="_csrf"]').content;
+            form.appendChild(csrfInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    // Recherche simple
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.eleve-row');
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
+</body>
+</html>
